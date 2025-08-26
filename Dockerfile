@@ -12,11 +12,11 @@ WORKDIR /var/www/html
 # Copy application files
 COPY . .
 
-# Set proper permissions
-RUN chown -R www-data:www-data /var/www/html \
+# Create files if they don't exist and set proper permissions
+RUN touch users.json error.log \
+    && chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html \
     && chmod 664 users.json error.log \
-    && touch users.json error.log \
     && chown www-data:www-data users.json error.log
 
 # Expose port
